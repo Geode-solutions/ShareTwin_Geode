@@ -3,6 +3,7 @@ import flask_cors
 import os
 import functions
 import werkzeug
+import GeodeObjects
 
 validitychecker_routes = flask.Blueprint('validitychecker_routes', __name__)
 flask_cors.CORS(validitychecker_routes)
@@ -46,7 +47,6 @@ def vaditychecker_uploadfile():
 
         secureFilename = werkzeug.utils.secure_filename(filename)
         filePath = os.path.join(UPLOAD_FOLDER, secureFilename)
-        model = functions.GeodeObjects.ObjectsList()[object]['load'](filePath)
         strictFileName = os.path.splitext(secureFilename)[0]
         newFileName = strictFileName + '.' + extension
 
@@ -64,6 +64,10 @@ def vaditychecker_uploadfile():
         uploadedFile = functions.UploadFile(file, filename, UPLOAD_FOLDER, filesize)
         if not uploadedFile:
             flask.make_response({"error_message": "File not uploaded"}, 500)
+
+        newFilePath = os.path.join(UPLOAD_FOLDER, newFileName)
+        model = GeodeObjects.ObjectsList()[object]['load'](filePath)
+        functions.GeodeObjects.ObjectsList()[object]['save'](model, newFilePath)
             
         return flask.make_response({"message": "File uploaded"}, 200)
     except Exception as e:
