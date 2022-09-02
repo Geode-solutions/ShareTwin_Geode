@@ -6,14 +6,14 @@ class Config(object):
     ID = os.environ.get('ID', default=None)
     PORT = '5000'
     CORS_HEADERS = 'Content-Type'
-    UPLOAD_FOLDER = '/uploads'
+    UPLOAD_FOLDER = '/data'
     LOCK_FOLDER = './lock'
 
 class ProdConfig(Config):
     DEBUG = False
     TESTING = False
     SSL = 'adhoc'
-    ORIGINS = ['https://geode-solutions.com', 'https://next.geode-solutions.com']
+    ORIGINS = ['https://friendly-dolphin-d9fdd1.netlify.app/']
 
 class DevConfig(Config):
     DEBUG = True
