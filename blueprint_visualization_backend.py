@@ -69,7 +69,7 @@ def vaditychecker_uploadfile():
         model = GeodeObjects.ObjectsList()[object]['load'](filePath)
         functions.GeodeObjects.ObjectsList()[object]['save'](model, newFilePath)
             
-        return flask.make_response({"message": "File uploaded"}, 200)
+        return flask.make_response({"newFilename": newFileName}, 200)
     except Exception as e:
         print("error : ", str(e))
         return flask.make_response({"error_message": str(e)}, 500)
