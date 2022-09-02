@@ -33,9 +33,9 @@ def kill():
         os.remove(LOCK_FOLDER + '/ping.txt')
 
 ''' Config variables '''
-FLASK_DEBUG = os.environ.get('FLASK_DEBUG', default=None)
+FLASK_ENV = os.environ.get('FLASK_ENV', default=None)
 
-if FLASK_DEBUG == "production" or FLASK_DEBUG == "test":
+if FLASK_ENV == "production" or FLASK_ENV == "test":
     app.config.from_object('config.ProdConfig')
     set_interval(kill, 45)
 else:
@@ -83,5 +83,5 @@ def ping():
 
 # ''' Main '''
 if __name__ == '__main__':
-    print('Python is running in ' + FLASK_DEBUG + ' mode')
+    print('Python is running in ' + FLASK_ENV + ' mode')
     app.run(debug=DEBUG, host='0.0.0.0', port=PORT, ssl_context=SSL)
