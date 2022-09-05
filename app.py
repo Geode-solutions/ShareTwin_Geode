@@ -52,27 +52,27 @@ ORIGINS = app.config.get('ORIGINS')
 SSL = app.config.get('SSL')
 
 
-# if ID != None:
-#     app.register_blueprint(blueprint_visualization_backend.validitychecker_routes, url_prefix=f'/api')
-# else:
-app.register_blueprint(blueprint_visualization_backend.validitychecker_routes, url_prefix='/api')
+if ID != None:
+    app.register_blueprint(blueprint_visualization_backend.validitychecker_routes, url_prefix=f'/{ID}/api')
+else:
+    app.register_blueprint(blueprint_visualization_backend.validitychecker_routes, url_prefix='/api')
 
 flask_cors.CORS(app, origins=ORIGINS)
 
 # For development
-@app.route(f'/{ID}/', methods=['GET'])
+@app.route(f'/{ID}/api', methods=['GET'])
 def root():
     return flask.make_response({"message": "root"}, 200)
-@app.route('/tools/createbackend', methods=['POST'])
+@app.route('api/visualization/createbackend', methods=['POST'])
 def createbackend():
     return flask.make_response({"ID": str("123456")}, 200)
-@app.route(f'/{ID}/kill', methods=['POST'])
+@app.route(f'/{ID}/api/kill', methods=['POST'])
 def test_kill():
     kill()
     return flask.make_response({"message": "Task killed"}, 200)
   
 # For production
-@app.route(f'/{ID}/ping', methods=['POST'])
+@app.route(f'/{ID}/api/ping', methods=['POST'])
 def ping():
     if not os.path.exists(LOCK_FOLDER):
         os.mkdir(LOCK_FOLDER)
