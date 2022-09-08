@@ -60,7 +60,7 @@ else:
 flask_cors.CORS(app, origins=ORIGINS)
 
 # For development
-@app.route(f'/{ID}/api', methods=['GET'])
+@app.route('/', methods=['GET'])
 def root():
     return flask.make_response({"message": "root"}, 200)
 @app.route('/api/visualization/createbackend', methods=['POST'])
