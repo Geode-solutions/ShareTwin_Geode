@@ -63,6 +63,9 @@ flask_cors.CORS(app, origins=ORIGINS)
 @app.route('/', methods=['GET'])
 def root():
     return flask.make_response({"message": "root"}, 200)
+@app.route('/geode', methods=['GET'])
+def geode():
+    return flask.make_response({"message": "root"}, 200)
 @app.route('/api/visualization/createbackend', methods=['POST'])
 def createbackend():
     return flask.make_response({"ID": str("123456")}, 200)
