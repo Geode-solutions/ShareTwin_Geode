@@ -6,7 +6,7 @@ import threading
 import flask
 import flask_cors
 
-import blueprint_visualization_backend
+import blueprint_geode
 
 if os.path.isfile('./.env'):
     basedir = os.path.abspath(os.path.dirname(__file__))
@@ -51,11 +51,10 @@ TESTING = app.config.get('TESTING')
 ORIGINS = app.config.get('ORIGINS')
 SSL = app.config.get('SSL')
 
-
 if ID != None:
-    app.register_blueprint(blueprint_visualization_backend.validitychecker_routes, url_prefix=f'/{ID}/api')
+    app.register_blueprint(blueprint_geode.validitychecker_routes, url_prefix=f'/{ID}')
 else:
-    app.register_blueprint(blueprint_visualization_backend.validitychecker_routes, url_prefix='/api')
+    app.register_blueprint(blueprint_geode.validitychecker_routes, url_prefix='/')
 
 flask_cors.CORS(app, origins=ORIGINS)
 
@@ -66,13 +65,9 @@ def root():
 @app.route('/geode', methods=['GET'])
 def geode():
     return flask.make_response({"message": "geode"}, 200)
-@app.route('/api/visualization/createbackend', methods=['POST'])
+@app.route('/createbackend', methods=['POST'])
 def createbackend():
     return flask.make_response({"ID": str("123456")}, 200)
-@app.route(f'/{ID}/api/kill', methods=['POST'])
-def test_kill():
-    kill()
-    return flask.make_response({"message": "Task killed"}, 200)
   
 # For production
 @app.route(f'/{ID}/api/ping', methods=['POST'])

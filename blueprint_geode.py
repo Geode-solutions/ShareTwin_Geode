@@ -5,37 +5,18 @@ import functions
 import werkzeug
 import GeodeObjects
 
-validitychecker_routes = flask.Blueprint('validitychecker_routes', __name__)
-flask_cors.CORS(validitychecker_routes)
+geode_routes = flask.Blueprint('geode_routes', __name__)
+flask_cors.CORS(geode_routes)
 
-@validitychecker_routes.before_request
+@geode_routes.before_request
 def before_request():
     functions.create_lock_file()
 
-@validitychecker_routes.teardown_request
+@geode_routes.teardown_request
 def teardown_request(exception):
     functions.remove_lock_file()
 
-@validitychecker_routes.route('/versions', methods=['GET'])
-def validitychecker_versions():
-    list_packages = ['OpenGeode-core', 'OpenGeode-IO', 'OpenGeode-Geosciences', 'OpenGeode-GeosciencesIO', 'OpenGeode-Inspector']
-    return flask.make_response({"versions": functions.GetVersions(list_packages)}, 200)
-
-@validitychecker_routes.route('/allowedfiles', methods=['GET'])
-def vaditychecker_allowedfiles():
-    extensions = functions.ListAllInputExtensions()
-    return {"status": 200, "extensions": extensions}
-
-@validitychecker_routes.route('/allowedobjects', methods=['POST'])
-def validitychecker_allowedobjects():
-    filename = flask.request.form.get('filename')
-    if filename is None:
-        return flask.make_response({"error_message": "No file sent"}, 400)
-    file_extension = os.path.splitext(filename)[1][1:]
-    objects = functions.ListObjects(file_extension)
-    return flask.make_response({"objects": objects}, 200)
-
-@validitychecker_routes.route('/uploadfile', methods=['POST'])
+@geode_routes.route('/uploadfile', methods=['POST'])
 def vaditychecker_uploadfile():
     try:
         UPLOAD_FOLDER = flask.current_app.config['UPLOAD_FOLDER']
