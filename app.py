@@ -51,10 +51,10 @@ TESTING = app.config.get('TESTING')
 ORIGINS = app.config.get('ORIGINS')
 SSL = app.config.get('SSL')
 
-if ID != None:
-    app.register_blueprint(blueprint_geode.validitychecker_routes, url_prefix=f'/{ID}')
-else:
-    app.register_blueprint(blueprint_geode.validitychecker_routes, url_prefix='/')
+# if ID != None:
+#     app.register_blueprint(blueprint_geode.validitychecker_routes, url_prefix=f'/{ID}')
+# else:
+app.register_blueprint(blueprint_geode.validitychecker_routes, url_prefix='/')
 
 flask_cors.CORS(app, origins=ORIGINS)
 
