@@ -58,27 +58,6 @@ app.register_blueprint(blueprint_geode.validitychecker_routes, url_prefix='/')
 
 flask_cors.CORS(app, origins=ORIGINS)
 
-# For development
-@app.route('/', methods=['GET'])
-def root():
-    return flask.make_response({"message": "root"}, 200)
-@app.route('/geode', methods=['GET'])
-def geode():
-    return flask.make_response({"message": "geode"}, 200)
-@app.route('/createbackend', methods=['POST'])
-def createbackend():
-    return flask.make_response({"ID": str("123456")}, 200)
-  
-# For production
-@app.route(f'/{ID}/api/ping', methods=['POST'])
-def ping():
-    if not os.path.exists(LOCK_FOLDER):
-        os.mkdir(LOCK_FOLDER)
-    if not os.path.isfile(LOCK_FOLDER + '/ping.txt'):
-        f = open(LOCK_FOLDER + '/ping.txt', 'a')
-        f.close()
-    return flask.make_response({"message": "Flask server is running"}, 200)
-
 # ''' Main '''
 if __name__ == '__main__':
     print('Python is running in ' + FLASK_ENV + ' mode')

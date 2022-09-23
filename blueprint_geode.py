@@ -16,6 +16,21 @@ def before_request():
 def teardown_request(exception):
     functions.remove_lock_file()
 
+@geode_routes.route('/', methods=['GET'])
+def root():
+    return flask.make_response({"message": "root"}, 200)
+@geode_routes.route('/createbackend', methods=['POST'])
+def createbackend():
+    return flask.make_response({"ID": str("123456")}, 200)
+@geode_routes.route('/ping', methods=['POST'])
+def ping():
+    LOCK_FOLDER = flask.current_app.config['LOCK_FOLDER']
+    if not os.path.exists(LOCK_FOLDER):
+        os.mkdir(LOCK_FOLDER)
+    if not os.path.isfile(LOCK_FOLDER + '/ping.txt'):
+        f = open(LOCK_FOLDER + '/ping.txt', 'a')
+        f.close()
+    return flask.make_response({"message": "Flask server is running"}, 200)
 @geode_routes.route('/uploadfile', methods=['POST'])
 def vaditychecker_uploadfile():
     try:
