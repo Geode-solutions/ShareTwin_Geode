@@ -13,7 +13,7 @@ class ProdConfig(Config):
     DEBUG = False
     TESTING = False
     SSL = 'adhoc'
-    ORIGINS = ['https://friendly-dolphin-d9fdd1.netlify.app/']
+    ORIGINS = ['https://friendly-dolphin-d9fdd1.netlify.app']
 
 class DevConfig(Config):
     DEBUG = True
