@@ -41,11 +41,6 @@ def vaditychecker_uploadfile():
         filesize = flask.request.form.get('filesize')
         extension = flask.request.form.get('extension')
 
-        secureFilename = werkzeug.utils.secure_filename(filename)
-        filePath = os.path.join(UPLOAD_FOLDER, secureFilename)
-        strictFileName = os.path.splitext(secureFilename)[0]
-        newFileName = strictFileName + '.' + extension
-
         if object is None:
             return flask.make_response({"error_message": "No object sent"}, 400)
         if file is None:
@@ -57,6 +52,11 @@ def vaditychecker_uploadfile():
         if extension is None:
             return flask.make_response({"error_message": "No extension sent"}, 400)
         
+        secureFilename = werkzeug.utils.secure_filename(filename)
+        filePath = os.path.join(UPLOAD_FOLDER, secureFilename)
+        strictFileName = os.path.splitext(secureFilename)[0]
+        newFileName = strictFileName + '.' + extension
+
         uploadedFile = functions.UploadFile(file, filename, UPLOAD_FOLDER, filesize)
         if not uploadedFile:
             flask.make_response({"error_message": "File not uploaded"}, 500)
