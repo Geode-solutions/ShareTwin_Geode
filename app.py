@@ -44,6 +44,7 @@ else:
 ID = app.config.get('ID')
 PORT = int(app.config.get('PORT'))
 CORS_HEADERS = app.config.get('CORS_HEADERS')
+DATA_FOLDER = app.config.get('DATA_FOLDER')
 UPLOAD_FOLDER = app.config.get('UPLOAD_FOLDER')
 LOCK_FOLDER = app.config.get('LOCK_FOLDER')
 DEBUG = app.config.get('DEBUG')

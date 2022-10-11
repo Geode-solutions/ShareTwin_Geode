@@ -31,8 +31,32 @@ def ping():
         f = open(LOCK_FOLDER + '/ping.txt', 'a')
         f.close()
     return flask.make_response({"message": "Flask server is running"}, 200)
+
 @geode_routes.route('/uploadfile', methods=['POST'])
-def vaditychecker_uploadfile():
+def uploadfile():
+    try:
+        DATA_FOLDER = flask.current_app.config['DATA_FOLDER']
+        file = flask.request.form.get('file')
+        filename = flask.request.form.get('filename')
+        filesize = flask.request.form.get('filesize')
+        if file is None:
+            return flask.make_response({"error_message": "No file sent"}, 400)
+        if filename is None:
+            return flask.make_response({"error_message": "No filename sent"}, 400)
+        if filesize is None:
+            return flask.make_response({"error_message": "No filesize sent"}, 400)
+          
+        uploadedFile = functions.UploadFile(file, filename, UPLOAD_FOLDER, filesize)
+        if not uploadedFile:
+            flask.make_response({"error_message": "File not uploaded"}, 500)
+            
+        return flask.make_response({"message": "File uploaded"}, 200)
+    except Exception as e:
+        print("error : ", str(e))
+        return flask.make_response({"error_message": str(e)}, 500)
+
+@geode_routes.route('/convertfile', methods=['POST'])
+def convertfile():
     try:
         UPLOAD_FOLDER = flask.current_app.config['UPLOAD_FOLDER']
         object = flask.request.form.get('object')
