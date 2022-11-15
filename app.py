@@ -6,7 +6,8 @@ import threading
 import flask
 import flask_cors
 
-import blueprint_geode
+import blueprint_ID
+import blueprint_fileconverter
 
 if os.path.isfile('./.env'):
     basedir = os.path.abspath(os.path.dirname(__file__))
@@ -48,12 +49,11 @@ DATA_FOLDER = app.config.get('DATA_FOLDER')
 UPLOAD_FOLDER = app.config.get('UPLOAD_FOLDER')
 LOCK_FOLDER = app.config.get('LOCK_FOLDER')
 DEBUG = app.config.get('DEBUG')
-print('DEBUG : ', DEBUG)
 TESTING = app.config.get('TESTING')
 ORIGINS = app.config.get('ORIGINS')
 SSL = app.config.get('SSL')
 
-app.register_blueprint(blueprint_geode.geode_routes)
+app.register_blueprint(blueprint_fileconverter.geode_routes)
 
 flask_cors.CORS(app, origins=ORIGINS)
 
