@@ -22,6 +22,9 @@ def root():
 @geode_routes.route('/createbackend', methods=['POST'])
 def createbackend():
     return flask.make_response({"ID": str("123456")}, 200)
+@geode_routes.route('/healthcheck', methods=['GET'])
+def root():
+    return flask.make_response({"message": "healthy"}, 200)
 @geode_routes.route('/ping', methods=['POST'])
 def ping():
     LOCK_FOLDER = flask.current_app.config['LOCK_FOLDER']
