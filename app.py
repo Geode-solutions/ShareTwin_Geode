@@ -51,7 +51,7 @@ TESTING = app.config.get('TESTING')
 ORIGINS = app.config.get('ORIGINS')
 SSL = app.config.get('SSL')
 
-app.register_blueprint(blueprint_geode.geode_routes)
+app.register_blueprint(blueprint_geode.geode_routes, url_prefix=f'/{ID}')
 
 flask_cors.CORS(app, origins=ORIGINS)
 
