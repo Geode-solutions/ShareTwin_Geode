@@ -12,7 +12,7 @@ class Config(object):
 class ProdConfig(Config):
     DEBUG = False
     TESTING = False
-    SSL = 'adhoc'
+    SSL = None
     ORIGINS = ['https://friendly-dolphin-d9fdd1.netlify.app']
 
 class DevConfig(Config):
