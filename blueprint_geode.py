@@ -19,7 +19,7 @@ def teardown_request(exception):
 @geode_routes.route('/', methods=['GET'])
 def root():
     return flask.make_response({"message": "root"}, 200)
-@geode_routes.route('/createbackend', methods=['POST'])
+@geode_routes.route('/sharetwin/createbackend', methods=['POST', 'OPTIONS'])
 def createbackend():
     return flask.make_response({"ID": str("123456")}, 200)
 @geode_routes.route('/healthcheck', methods=['GET'])

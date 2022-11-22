@@ -13,7 +13,7 @@ class ProdConfig(Config):
     DEBUG = False
     TESTING = False
     SSL = None
-    ORIGINS = ['https://friendly-dolphin-d9fdd1.netlify.app']
+    ORIGINS = ['https://share-twin.com', 'https://sharetwin.geode-solutions.com']
 
 class DevConfig(Config):
     DEBUG = True
