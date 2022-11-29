@@ -3,7 +3,7 @@ import flask_cors
 import os
 import functions
 import werkzeug
-import GeodeObjects
+import geode_objects
 import uuid4
 
 geode_routes = flask.Blueprint('geode_routes', __name__)
@@ -42,8 +42,8 @@ def upload_file():
         ID = str(uuid.uuid4()).replace('-', '')
         DATA_FOLDER = flask.current_app.config['DATA_FOLDER']
         file = flask.request.form.get('file')
-        file_name = flask.request.form.get('filename')
-        file_size = flask.request.form.get('filesize')
+        file_name = flask.request.form.get('file_name')
+        file_size = flask.request.form.get('file_size')
         
         if file is None:
             return flask.make_response({"error_message": "No file sent"}, 400)
@@ -71,7 +71,7 @@ def convert_file():
         object = flask.request.form.get('object')
         file = flask.request.form.get('file')
         file_name = flask.request.form.get('file_name')
-        filesize = flask.request.form.get('filesize')
+        file_size = flask.request.form.get('file_size')
         extension = flask.request.form.get('extension')
 
         if object is None:
@@ -80,8 +80,8 @@ def convert_file():
             return flask.make_response({"error_message": "No file sent"}, 400)
         if file_name is None:
             return flask.make_response({"error_message": "No file_name sent"}, 400)
-        if filesize is None:
-            return flask.make_response({"error_message": "No filesize sent"}, 400)
+        if file_size is None:
+            return flask.make_response({"error_message": "No file_size sent"}, 400)
         if extension is None:
             return flask.make_response({"error_message": "No extension sent"}, 400)
         
@@ -95,8 +95,8 @@ def convert_file():
             flask.make_response({"error_message": "File not uploaded"}, 500)
 
         newFilePath = os.path.join(UPLOAD_FOLDER, new_file_name)
-        model = GeodeObjects.ObjectsList()[object]['load'](file_path)
-        functions.GeodeObjects.ObjectsList()[object]['save'](model, newFilePath)
+        model = geode_objects.ObjectsList()[object]['load'](file_path)
+        functions.geode_objects.ObjectsList()[object]['save'](model, newFilePath)
             
         return flask.make_response({"newFilename": new_file_name}, 200)
     except Exception as e:
