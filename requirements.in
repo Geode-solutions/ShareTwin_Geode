@@ -1,0 +1,9 @@
+cryptography
+python-dotenv
+Flask[async]
+Flask-Cors
+Werkzeug
+OpenGeode-core
+OpenGeode-IO
+OpenGeode-Geosciences
+OpenGeode-GeosciencesIO
