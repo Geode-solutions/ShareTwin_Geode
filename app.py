@@ -37,7 +37,7 @@ FLASK_ENV = os.environ.get('FLASK_ENV', default=None)
 
 if FLASK_ENV == "production" or FLASK_ENV == "test":
     app.config.from_object('config.ProdConfig')
-    set_interval(kill, 45)
+    set_interval(kill, 150)
 else:
     app.config.from_object('config.DevConfig')
 
