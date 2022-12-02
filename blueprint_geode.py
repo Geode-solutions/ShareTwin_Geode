@@ -25,7 +25,7 @@ def createbackend():
 @geode_routes.route('/healthcheck', methods=['GET'])
 def healthcheck():
     return flask.make_response({"message": "healthy"}, 200)
-@geode_routes.route('/ping', methods=['POST'])
+@geode_routes.route('/ping', methods=['GET', 'POST'])
 def ping():
     LOCK_FOLDER = flask.current_app.config['LOCK_FOLDER']
     if not os.path.exists(LOCK_FOLDER):
