@@ -1,5 +1,5 @@
 import base64
-import GeodeObjects
+import geode_objects
 import os
 import pkg_resources
 import werkzeug
@@ -14,9 +14,9 @@ def ListAllInputExtensions():
         An ordered list of input file extensions
     """
     List = []
-    ObjectsList = GeodeObjects.ObjectsList()
+    objects_list = geode_objects.objects_list()
 
-    for Object in ObjectsList.values():
+    for Object in objects_list.values():
         values = Object['input']
         for value in values:
             list_creators = value.list_creators()
@@ -36,9 +36,9 @@ def ListObjects(extension: str):
         An ordered list of object's names
     """
     List = []
-    ObjectsList = GeodeObjects.ObjectsList()
+    objects_list = geode_objects.objects_list()
 
-    for Object, values in ObjectsList.items():
+    for Object, values in objects_list.items():
         list_values = values['input']
         for value in list_values:
             if value.has_creator(extension):
@@ -57,9 +57,9 @@ def ListOutputFileExtensions(object: str):
         An ordered list of file extensions
     """
     List = []
-    ObjectsList = GeodeObjects.ObjectsList()
+    objects_list = geode_objects.objects_list()
 
-    values = ObjectsList[object]['output']
+    values = objects_list[object]['output']
     for value in values:
         list_creators = value.list_creators()
         for creator in list_creators:
