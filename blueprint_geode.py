@@ -3,7 +3,8 @@ import flask_cors
 import os
 import functions
 import werkzeug
-import GeodeObjects
+import geode_objects
+import uuid
 
 geode_routes = flask.Blueprint('geode_routes', __name__)
 flask_cors.CORS(geode_routes)

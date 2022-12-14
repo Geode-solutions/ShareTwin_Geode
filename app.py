@@ -33,23 +33,19 @@ def kill():
         os.remove(LOCK_FOLDER + '/ping.txt')
 
 ''' Config variables '''
-FLASK_ENV = os.environ.get('FLASK_ENV', default=None)
+FLASK_DEBUG = os.environ.get('FLASK_ENV', default=None)
 
-if FLASK_ENV == "production" or FLASK_ENV == "test":
+if FLASK_DEBUG == False:
     app.config.from_object('config.ProdConfig')
     set_interval(kill, 150)
 else:
     app.config.from_object('config.DevConfig')
 
-ID = app.config.get('ID')
 PORT = int(app.config.get('PORT'))
 CORS_HEADERS = app.config.get('CORS_HEADERS')
 UPLOAD_FOLDER = app.config.get('UPLOAD_FOLDER')
 LOCK_FOLDER = app.config.get('LOCK_FOLDER')
-DEBUG = app.config.get('DEBUG')
-TESTING = app.config.get('TESTING')
 ORIGINS = app.config.get('ORIGINS')
-SSL = app.config.get('SSL')
 
 app.register_blueprint(blueprint_geode.geode_routes)
 
@@ -57,5 +53,5 @@ flask_cors.CORS(app, origins=ORIGINS)
 
 # ''' Main '''
 if __name__ == '__main__':
-    print('Python is running in ' + FLASK_ENV + ' mode')
-    app.run(debug=DEBUG, host='0.0.0.0', port=PORT, ssl_context=SSL)
+    print('Python is running in ' + FLASK_DEBUG + ' mode')
+    app.run(host='0.0.0.0', port=PORT)
