@@ -54,5 +54,5 @@ flask_cors.CORS(app, origins=ORIGINS)
 
 # ''' Main '''
 if __name__ == '__main__':
-    print('Python is running in ' + FLASK_DEBUG + ' mode')
+    print('Python is running in ' + str(FLASK_DEBUG) + ' mode')
     app.run(host='0.0.0.0', port=PORT, ssl_context=SSL)
