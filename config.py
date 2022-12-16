@@ -9,7 +9,9 @@ class Config(object):
     LOCK_FOLDER = './lock'
 
 class ProdConfig(Config):
+    SSL = None
     ORIGINS = ['https://share-twin.com', 'https://next.share-twin.com']
 
 class DevConfig(Config):
+    SSL = None
     ORIGINS = 'http://localhost:3000'
