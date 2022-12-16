@@ -33,7 +33,7 @@ def kill():
         os.remove(LOCK_FOLDER + '/ping.txt')
 
 ''' Config variables '''
-FLASK_DEBUG = os.environ.get('FLASK_ENV', default=None)
+FLASK_DEBUG = os.environ.get('FLASK_DEBUG', default=False)
 
 if FLASK_DEBUG == False:
     app.config.from_object('config.ProdConfig')

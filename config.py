@@ -2,7 +2,7 @@
 import os
 
 class Config(object):
-    FLASK_DEBUG = os.environ.get('FLASK_DEBUG', default=None)
+    FLASK_DEBUG = os.environ.get('FLASK_DEBUG', default=False)
     PORT = '5000'
     CORS_HEADERS = 'Content-Type'
     UPLOAD_FOLDER = '/data'
