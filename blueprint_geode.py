@@ -3,7 +3,8 @@ import flask_cors
 import os
 import functions
 import werkzeug
-import GeodeObjects
+import geode_objects
+import uuid
 
 geode_routes = flask.Blueprint('geode_routes', __name__)
 flask_cors.CORS(geode_routes)
@@ -25,7 +26,7 @@ def createbackend():
 @geode_routes.route('/healthcheck', methods=['GET'])
 def healthcheck():
     return flask.make_response({"message": "healthy"}, 200)
-@geode_routes.route('/ping', methods=['POST'])
+@geode_routes.route('/ping', methods=['GET', 'POST'])
 def ping():
     LOCK_FOLDER = flask.current_app.config['LOCK_FOLDER']
     if not os.path.exists(LOCK_FOLDER):
@@ -64,7 +65,7 @@ def uploadfile():
 def convertfile():
     try:
         UPLOAD_FOLDER = flask.current_app.config['UPLOAD_FOLDER']
-        object = flask.request.form.get('object')
+        object_type = flask.request.form.get('object')
         file = flask.request.form.get('file')
         filename = flask.request.form.get('filename')
         filesize = flask.request.form.get('filesize')
@@ -91,8 +92,8 @@ def convertfile():
             flask.make_response({"error_message": "File not uploaded"}, 500)
 
         newFilePath = os.path.join(UPLOAD_FOLDER, newFileName)
-        model = GeodeObjects.ObjectsList()[object]['load'](filePath)
-        functions.GeodeObjects.ObjectsList()[object]['save'](model, newFilePath)
+        model = geode_objects.objects_list()[object_type]['load'](filePath)
+        functions.geode_objects.objects_list()[object_type]['save'](model, newFilePath)
             
         return flask.make_response({"newFilename": newFileName}, 200)
     except Exception as e:
