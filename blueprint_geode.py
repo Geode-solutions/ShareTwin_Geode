@@ -65,7 +65,7 @@ def uploadfile():
 def convertfile():
     try:
         UPLOAD_FOLDER = flask.current_app.config['UPLOAD_FOLDER']
-        object = flask.request.form.get('object')
+        object_type = flask.request.form.get('object')
         file = flask.request.form.get('file')
         filename = flask.request.form.get('filename')
         filesize = flask.request.form.get('filesize')
@@ -92,8 +92,8 @@ def convertfile():
             flask.make_response({"error_message": "File not uploaded"}, 500)
 
         newFilePath = os.path.join(UPLOAD_FOLDER, newFileName)
-        model = geode_objects.objects_list()[object]['load'](filePath)
-        functions.geode_objects.objects_list()[object]['save'](model, newFilePath)
+        model = geode_objects.objects_list()[object_type]['load'](filePath)
+        functions.geode_objects.objects_list()[object_type]['save'](model, newFilePath)
             
         return flask.make_response({"newFilename": newFileName}, 200)
     except Exception as e:
